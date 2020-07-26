@@ -1,0 +1,43 @@
+ID: html5_router
+_schema-version: "2.1"
+version: 1.0.0
+modules:
+  - name: app_router
+    type: approuter.nodejs
+    path: router
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: uaa_app_router
+      - name: html5_repo_runtime
+      - name: html5_destination
+      
+  - name: ui_deployer
+    type: com.sap.html5.application-content
+    path: deployer
+    requires:
+      - name: html5_repo_host
+
+resources:
+  - name: html5_repo_runtime
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: uaa_app_router
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service
+  - name: html5_repo_host
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: html5_destination
+    parameters:
+      service-plan: lite
+      service: destination
+    type: org.cloudfoundry.managed-service

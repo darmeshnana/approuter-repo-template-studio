@@ -1,0 +1,16 @@
+{
+    "welcomeFile": "/webapp/index.html",
+    "authenticationMethod": "route",
+    "routes":[
+        {
+        "source": "^\/myDataModel\/(.*)$",
+        "target": "$1",
+        "destination": "myDestination",
+        "csrfProtection": false
+        },
+        {   "source":"^(.*)",
+            "target": "$1",
+            "service":"html5-apps-repo-rt"
+        }
+    ]
+}
